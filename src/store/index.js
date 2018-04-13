@@ -2,12 +2,12 @@ import {createStore, combineReducers} from 'redux';
 import HomeReducer from '../routes/Home/reducer'
 
 const reducers = combineReducers({
-    HomeReducer
+  HomeReducer
 })
 const createStoreFun = () => {
-    const store = createStore(
-        reducers
-    );
-    return store;
+  const store = createStore(
+    reducers
+  );
+  return store;
 }
 export default createStoreFun;
