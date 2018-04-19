@@ -4,7 +4,6 @@ import {Button, Table} from 'antd';
 const Column = Table.Column;
 export default class HomeView extends React.Component {
   render() {
-    debugger;
     const {list, requestDataEvent} = this.props;
     return <div>
       <Button onClick={requestDataEvent}>请求数据</Button>

@@ -1,12 +1,16 @@
-var url = '/saas20/api/2017063002/Apartment/free/largescreenview/energy/consumption';
+import Api from '../../common/api';
+import {request} from '../../utils/request';
+
 let requestData = (dispatch) => {
-  fetch(url, {
-    method: 'POST'
-  })
-    .then(response => response.json())
-    .then(json => dispatch({
-      type: 'FETCH_POSTS',
-      data: json
-    }));
+  //Common.setLoading('root');
+  request(Api.Home.fristData, {}, 'post', 'root', root)
+    .then(response => {
+      //Common.removeLoading('root');
+      console.log('进入then方法');
+      dispatch({
+        type: 'FETCH_POSTS',
+        data: response.data
+      })
+    })
 }
 export default requestData;

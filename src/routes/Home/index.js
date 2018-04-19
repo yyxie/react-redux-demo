@@ -1,5 +1,8 @@
-import Home from './container'
+/*import Home from './container'*/
 
 export default {
-  component: Home
+  getComponent (nextState, cb) {
+    const Home = require('./container').default;
+    cb(null, Home)
+  }
 }

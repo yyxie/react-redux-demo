@@ -1,9 +1,7 @@
-import Home from './container'
+import Home from './Home';
+
 
 export default {
-    path: 'pageTest',
-    component: Home,
-    /* childRoutes: [
-        HomeRoute(store)
-    ]*/
+  path: 'pageTest',
+  component: Home,
 }

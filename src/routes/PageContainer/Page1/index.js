@@ -1,5 +1,10 @@
-import Home from './container'
+import Page1 from './container';
+import {checkLogin} from '../../../utils'
+
+console.log(checkLogin);
 
 export default {
-    component: Home
+  path: '/path1',
+  component: Page1,
+  onEnter: checkLogin
 }

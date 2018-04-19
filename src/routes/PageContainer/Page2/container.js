@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import requestData from './action';
-import Page1View from './components'
+import Page2View from './components'
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
@@ -10,14 +10,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 }
 const mapStateToProps = (state, ownProps) => {
-  debugger;
   return {
-
-    //text: state.Page1Reducer.text
+    // text: state.Page2View.text
   }
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Page1View)
+)(Page2View)
