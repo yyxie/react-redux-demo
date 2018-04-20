@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { Form, Tabs } from 'antd';
+import {Form, Tabs} from 'antd';
 import classNames from 'classnames';
 import LoginItem from './LoginItem';
 import LoginTab from './LoginTab';
@@ -12,8 +12,10 @@ class Login extends Component {
   static defaultProps = {
     className: '',
     defaultActiveKey: '',
-    onTabChange: () => {},
-    onSubmit: () => {},
+    onTabChange: () => {
+    },
+    onSubmit: () => {
+    },
   };
   static propTypes = {
     className: PropTypes.string,
@@ -31,6 +33,7 @@ class Login extends Component {
     tabs: [],
     active: {},
   };
+
   getChildContext() {
     return {
       tabUtil: {
@@ -47,7 +50,7 @@ class Login extends Component {
       },
       form: this.props.form,
       updateActive: activeItem => {
-        const { type, active } = this.state;
+        const {type, active} = this.state;
         if (active[type]) {
           active[type].push(activeItem);
         } else {
@@ -59,6 +62,7 @@ class Login extends Component {
       },
     };
   }
+
   onSwitch = type => {
     this.setState({
       type,
@@ -67,15 +71,16 @@ class Login extends Component {
   };
   handleSubmit = e => {
     e.preventDefault();
-    const { active, type } = this.state;
+    const {active, type} = this.state;
     const activeFileds = active[type];
-    this.props.form.validateFields(activeFileds, { force: true }, (err, values) => {
+    this.props.form.validateFields(activeFileds, {force: true}, (err, values) => {
       this.props.onSubmit(err, values);
     });
   };
+
   render() {
-    const { className, children } = this.props;
-    const { type, tabs } = this.state;
+    const {className, children} = this.props;
+    const {type, tabs} = this.state;
     const TabChildren = [];
     const otherChildren = [];
     React.Children.forEach(children, item => {
@@ -115,8 +120,9 @@ class Login extends Component {
 
 Login.Tab = LoginTab;
 Login.Submit = LoginSubmit;
-Object.keys(LoginItem).forEach(item => {
-  Login[item] = LoginItem[item];
-});
+Object.keys(LoginItem)
+  .forEach(item => {
+    Login[item] = LoginItem[item];
+  });
 
 export default Form.create()(Login);

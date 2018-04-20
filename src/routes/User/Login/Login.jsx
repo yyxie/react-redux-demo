@@ -17,7 +17,6 @@ export default class LoginPage extends Component {
   };
 
   constructor(props) {
-    debugger;
     super(props);
   }
 
@@ -45,7 +44,7 @@ export default class LoginPage extends Component {
   };
 
   renderMessage = content => {
-    return <Alert style={{marginBottom: 24}} message={content} type="error" showIcon/>;
+    return <Alert style={{marginBottom: 24}} message={content} type="error" showIcon />;
   };
 
   render() {
@@ -59,16 +58,16 @@ export default class LoginPage extends Component {
             login.type === 'account' &&
             !login.submitting &&
             this.renderMessage('账户或密码错误（admin/888888）')}
-            <UserName name="userName" placeholder="admin/user"/>
-            <Password name="password" placeholder="888888/123456"/>
+            <UserName name="userName" placeholder="admin/user" />
+            <Password name="password" placeholder="888888/123456" />
           </Tab>
           <Tab key="mobile" tab="手机号登录">
             {login.status === 'error' &&
             login.type === 'mobile' &&
             !login.submitting &&
             this.renderMessage('验证码错误')}
-            <Mobile name="mobile"/>
-            <Captcha name="captcha"/>
+            <Mobile name="mobile" />
+            <Captcha name="captcha" />
           </Tab>
           <div>
             <Checkbox checked={this.state.autoLogin} onChange={this.changeAutoLogin}>
@@ -81,9 +80,9 @@ export default class LoginPage extends Component {
           <Submit loading={submitting}>登录</Submit>
           <div className={styles.other}>
             其他登录方式
-            <Icon className={styles.icon} type="alipay-circle"/>
-            <Icon className={styles.icon} type="taobao-circle"/>
-            <Icon className={styles.icon} type="weibo-circle"/>
+            <Icon className={styles.icon} type="alipay-circle" />
+            <Icon className={styles.icon} type="taobao-circle" />
+            <Icon className={styles.icon} type="weibo-circle" />
             <Link className={styles.register} to="/user/register">
               注册账户
             </Link>

@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-export const OtherLayout = ({ children }) => (
-  <div className='container text-center'>
-   otherLayout
-    <div className='core-layout__viewport'>
+
+const OtherLayout = ({children}) => (
+  <div className="container text-center">
+    otherLayout
+    <div className="core-layout__viewport">
       {children}
     </div>
   </div>

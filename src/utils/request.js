@@ -2,22 +2,23 @@ import axios from 'axios';
 import {browserHistory} from 'react-router';
 import Common from './common';
 
-var CancelToken = axios.CancelToken;
-var source = CancelToken.source();
+const CancelToken = axios.CancelToken;
+const source = CancelToken.source();
 //拦截发送请求
 axios.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
   config.headers['access-token'] = token;
   config.loadingEle && Common.setLoading(config.loadingEle);
   return config;
-}, function (error) {
+}, (error) => {
   return Promise.reject(error);
 })
 
 // 拦截响应response，并做一些错误处理
+// eslint-disable-next-line consistent-return
 axios.interceptors.response.use((response) => {
   const data = response.data;
-  //response.config.loadingEle && Common.removeLoading(response.config.loadingEle);
+  response.config.loadingEle && Common.removeLoading(response.config.loadingEle);
   // 根据返回的code值来做不同的处理（和后端约定）
   if (data.errorCode === 0) {
     // 不显示提示消息
@@ -26,7 +27,6 @@ axios.interceptors.response.use((response) => {
     browserHistory.push('/login');
     return data;
   }
-
 }, (err) => { // 这里是返回状态码不为200时候的错误处理
   if (err && err.response) {
     switch (err.response.status) {
@@ -77,7 +77,7 @@ axios.interceptors.response.use((response) => {
       default:
     }
   }
-  //err.config.loadingEle && Common.removeLoading(err.config.loadingEle);
+  err.config.loadingEle && Common.removeLoading(err.config.loadingEle);
   return Promise.reject(err);
 })
 

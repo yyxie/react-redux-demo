@@ -1,4 +1,4 @@
-import LoginPage from './Login.jsx';
+import LoginPage from './Login';
 
 export default {
   path: '/login',

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Button from 'antd/lib/button';
+
 export interface LoginProps {
   defaultActiveKey?: string;
   onTabChange?: (key: string) => void;
@@ -11,7 +12,9 @@ export interface TabProps {
   key?: string;
   tab?: React.ReactNode;
 }
-export class Tab extends React.Component<TabProps, any> {}
+
+export class Tab extends React.Component<TabProps, any> {
+}
 
 export interface LoginItemProps {
   name?: string;
@@ -20,7 +23,8 @@ export interface LoginItemProps {
   onGetCaptcha?: () => void;
 }
 
-export class LoginItem extends React.Component<LoginItemProps, any> {}
+export class LoginItem extends React.Component<LoginItemProps, any> {
+}
 
 export default class Login extends React.Component<LoginProps, any> {
   static Tab: typeof Tab;

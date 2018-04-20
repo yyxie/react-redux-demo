@@ -10,7 +10,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 }
 const mapStateToProps = (state, ownProps) => {
-  debugger;
   return {
 
     //text: state.Page1Reducer.text

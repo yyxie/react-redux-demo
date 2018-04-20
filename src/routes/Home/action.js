@@ -2,7 +2,7 @@ import Api from '../../config/api';
 import {createAsyncAction} from '../../utils/util'
 import {request} from '../../utils/request';
 
-let requestData = (dispatch) => {
+const requestData = (dispatch) => {
   //Common.setLoading('root');
   createAsyncAction(request(Api.Home.fristData, {}, 'post', 'root', root), response => {
     //Common.removeLoading('root');

@@ -1,11 +1,10 @@
-import { message } from 'antd';
+import {message} from 'antd';
 
 const checkAuthorized = () => {
 
 }
 
 export const checkLogin = (nextState, replace, next) => {
-  debugger;
   /* const rootState = store.getState().rootReducer;*/
   const userInfoState = JSON.parse(localStorage.getItem('userInfoState'));
 
@@ -40,8 +39,9 @@ export const checkLogin = (nextState, replace, next) => {
 export const createAsyncAction = (httpHandle, httpSuccessHandle) => {
   httpHandle.then(() => {
     httpSuccessHandle();
-  }).catch(err => {
-    message.error(err.message);
   })
+    .catch(err => {
+      message.error(err.message);
+    })
 }
 
