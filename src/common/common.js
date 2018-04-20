@@ -1,4 +1,4 @@
-let common = {};
+const common = {};
 common.loadingObjects = {};
 
 // 参数 id: 需要loading遮罩覆盖的元素 id ,body 元素直接传入body字符串即可
@@ -6,34 +6,35 @@ common.loadingObjects = {};
 common.setLoading = (id = 'body') => {
   common.removeLoading(id);
 
-  let ele, loadingStyles = "ajax-async-loading";
+  let ele,
+    loadingStyles = 'ajax-async-loading';
   if (id !== 'body') {
     // 局部
     ele = document.getElementById(id);
-    let computedStyle = getComputedStyle(ele, null);
+    const computedStyle = getComputedStyle(ele, null);
     if (!computedStyle || !computedStyle.position || computedStyle.position != 'absolute') {
       ele.style.position = 'relative';
     }
 
-    loadingStyles += " load-child";
+    loadingStyles += ' load-child';
 
     // 效果处理
     ele.style.webkitFilter = 'blur(1px)';
     ele.style.filter = 'blur(1px)';
     ele.style.opacity = '0.7';
-
   } else {
     // 全局
     ele = document.body;
 
-    loadingStyles += " load-body";
+    loadingStyles += ' load-body';
     // 删除其他所有
-    Object.keys(common.loadingObjects).forEach(function (key) {
-      common.removeLoading(key);
-    });
+    Object.keys(common.loadingObjects)
+      .forEach((key) => {
+        common.removeLoading(key);
+      });
   }
 
-  let loadingEle = document.createElement('div');
+  const loadingEle = document.createElement('div');
   loadingEle.setAttribute('class', loadingStyles);
 
   loadingEle.innerHTML = '<div class="ajax-async-spin-container">'
@@ -44,7 +45,6 @@ common.setLoading = (id = 'body') => {
 
   ele.appendChild(loadingEle);
   common.loadingObjects[id] = loadingEle;
-
 };
 
 
@@ -52,16 +52,15 @@ common.setLoading = (id = 'body') => {
 // 作用：删除 id所对应的元素/body上的loading效果
 common.removeLoading = (id = 'body') => {
   if (common.loadingObjects[id]) {
-
     // 效果处理
-    let loadingObj = common.loadingObjects[id].parentNode;
+    const loadingObj = common.loadingObjects[id].parentNode;
     loadingObj.style.webkitFilter = '';
     loadingObj.style.filter = '';
     loadingObj.style.opacity = '';
 
     common.loadingObjects[id].parentNode.removeChild(common.loadingObjects[id]);
     delete common.loadingObjects[id];
-
   }
 };
+
 export default common;
