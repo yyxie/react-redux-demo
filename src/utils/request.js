@@ -1,7 +1,6 @@
 import axios from 'axios';
 import {browserHistory} from 'react-router';
-import Common from '../common/common';
-import {message} from 'antd';
+import Common from './common';
 
 var CancelToken = axios.CancelToken;
 var source = CancelToken.source();
@@ -18,8 +17,8 @@ axios.interceptors.request.use((config) => {
 // 拦截响应response，并做一些错误处理
 axios.interceptors.response.use((response) => {
   const data = response.data;
-  response.config.loadingEle && Common.removeLoading(response.config.loadingEle);
-// 根据返回的code值来做不同的处理（和后端约定）
+  //response.config.loadingEle && Common.removeLoading(response.config.loadingEle);
+  // 根据返回的code值来做不同的处理（和后端约定）
   if (data.errorCode === 0) {
     // 不显示提示消息
     data.description = '';
@@ -78,8 +77,7 @@ axios.interceptors.response.use((response) => {
       default:
     }
   }
-  err.config.loadingEle && Common.removeLoading(err.config.loadingEle);
-  message.error(err.message);
+  //err.config.loadingEle && Common.removeLoading(err.config.loadingEle);
   return Promise.reject(err);
 })
 
@@ -92,3 +90,4 @@ export const request = (url, param, method = 'get', loadingEle, option = {}) => 
     ...option
   })
 }
+

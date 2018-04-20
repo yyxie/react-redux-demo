@@ -1,7 +1,9 @@
+import { message } from 'antd';
 
 const checkAuthorized = () => {
 
 }
+
 export const checkLogin = (nextState, replace, next) => {
   debugger;
   /* const rootState = store.getState().rootReducer;*/
@@ -29,5 +31,17 @@ export const checkLogin = (nextState, replace, next) => {
      // store 中 含有 用户登录数据，直接进入相应页面
      next();
    }*/
+}
+/**
+ * 创建异步的action
+ * @param httpHandle axios请求
+ * @param httpSuccessHandle 请求成功的回调
+ */
+export const createAsyncAction = (httpHandle, httpSuccessHandle) => {
+  httpHandle.then(() => {
+    httpSuccessHandle();
+  }).catch(err => {
+    message.error(err.message);
+  })
 }
 
