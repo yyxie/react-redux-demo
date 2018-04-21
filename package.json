@@ -63,6 +63,8 @@
     "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
+    "less": "^3.0.1",
+    "less-loader": "^4.1.0",
     "prop-types": "^15.6.1",
     "react-document-title": "^2.0.3"
   },
@@ -102,5 +104,6 @@
   },
   "eslintConfig": {
     "extends": "react-app"
-  }
+  },
+  "theme": "./theme.js"
 }
