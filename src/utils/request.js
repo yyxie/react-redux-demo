@@ -1,9 +1,10 @@
 import axios from 'axios';
-import {browserHistory} from 'react-router';
+import {hashHistory} from 'react-router';
+import qs from 'qs';
+import {message} from 'antd';
+
 import Common from './common';
 
-const CancelToken = axios.CancelToken;
-const source = CancelToken.source();
 //拦截发送请求
 axios.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
@@ -20,13 +21,14 @@ axios.interceptors.response.use((response) => {
   const data = response.data;
   response.config.loadingEle && Common.removeLoading(response.config.loadingEle);
   // 根据返回的code值来做不同的处理（和后端约定）
-  if (data.errorCode === 0) {
+  if (data.errorCode !== -9999) {
     // 不显示提示消息
     data.description = '';
     localStorage.removeItem('token');
-    browserHistory.push('/login');
+    hashHistory.push('/login');
     return data;
   }
+  return Promise.reject(data);
 }, (err) => { // 这里是返回状态码不为200时候的错误处理
   if (err && err.response) {
     switch (err.response.status) {
@@ -76,18 +78,34 @@ axios.interceptors.response.use((response) => {
 
       default:
     }
+  } else {
+    err.message = '网络断了';
   }
   err.config.loadingEle && Common.removeLoading(err.config.loadingEle);
   return Promise.reject(err);
-})
+});
 
-export const request = (url, param, method = 'get', loadingEle, option = {}) => {
+//content-type 类型映射
+const contentTypeMapping = {
+  'key-value': 'application/x-www-form-urlencoded',
+  'form-data': 'multipart/form-data',
+  text: 'text/plain',
+  json: 'application/json'
+}
+
+export const request = (url, param, method = 'get', loadingEle, dataType = 'key-value', option = {}) => {
   return axios({
     method: method,
     url: url,
-    data: param,
+    data: dataType === 'key-value' ? qs.stringify(param) : param,
+    headers: {
+      'Content-type': contentTypeMapping[dataType]
+    },
     loadingEle: loadingEle,
     ...option
+  }).catch(error => {
+    message.error(error.message);
+    return Promise.reject(error);
   })
 }
 

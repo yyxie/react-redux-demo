@@ -1,5 +1,7 @@
 import {message} from 'antd';
+import {hashHistory} from 'react-router';
 
+let preUrl = '';//保存上一次url
 const checkAuthorized = () => {
 
 }
@@ -23,13 +25,21 @@ export const checkLogin = (nextState, replace, next) => {
     next();
   } else {
     // userInfoState 不存在 或者 已过期，则跳转到登录页
-    replace('/login');
+    //hashHistory.push('/login');
+    replace({
+      pathname: '/login',
+      query: {preUrl: preUrl}
+    });
     next();
   }
   /* } else {
      // store 中 含有 用户登录数据，直接进入相应页面
      next();
    }*/
+}
+export const routerLeave = (context) => {
+  debugger;
+  preUrl = context.location.pathname;
 }
 /**
  * 创建异步的action

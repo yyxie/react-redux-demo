@@ -1,15 +1,13 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router';
-import {Checkbox, Alert, Icon} from 'antd';
+import {Link, hashHistory} from 'react-router';
+import {Checkbox, Alert, Icon, message} from 'antd';
 import Login from '../../../components/Login';
-import styles from './Login.less';
+import './Login.less';
+import Api from '../../../config/api';
+import {request} from '../../../utils/request';
 
 const {Tab, UserName, Password, Mobile, Captcha, Submit} = Login;
 
-/*@connect(({ login, loading }) => ({
-  login,
-  submitting: loading.effects['login/login'],
-}))*/
 export default class LoginPage extends Component {
   state = {
     type: 'account',
@@ -18,24 +16,38 @@ export default class LoginPage extends Component {
 
   constructor(props) {
     super(props);
+
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   onTabChange = type => {
     this.setState({type});
   };
 
-  handleSubmit = (err, values) => {
-    const {type} = this.state;
+  handleSubmit(err, values) {
+    let {preUrl} = this.props.location.query;
+
     if (!err) {
-      this.props.dispatch({
-        type: 'login/login',
-        payload: {
-          ...values,
-          type,
-        },
-      });
+      request(Api.Login.signinUrl, {
+        username: values.userName,
+        pwd: values.passWord
+      }, 'post', 'root')
+        .then(result => {
+          console.log('进入then方法');
+          if (result.errorCode === 0 && result.data) {
+            localStorage.userInfo = JSON.stringify(result.data);
+
+            let redirectUrl = '/';
+
+            if (preUrl) {
+              redirectUrl = preUrl;
+            }
+
+            hashHistory.push(redirectUrl);
+          }
+        })
     }
-  };
+  }
 
   changeAutoLogin = e => {
     this.setState({
@@ -51,7 +63,7 @@ export default class LoginPage extends Component {
     const {login = {}, submitting} = this.props;
     const {type} = this.state;
     return (
-      <div className={styles.main}>
+      <div className="main">
         <Login defaultActiveKey={type} onTabChange={this.onTabChange} onSubmit={this.handleSubmit}>
           <Tab key="account" tab="账户密码登录">
             {login.status === 'error' &&
@@ -59,7 +71,7 @@ export default class LoginPage extends Component {
             !login.submitting &&
             this.renderMessage('账户或密码错误（admin/888888）')}
             <UserName name="userName" placeholder="admin/user" />
-            <Password name="password" placeholder="888888/123456" />
+            <Password name="passWord" placeholder="888888/123456" />
           </Tab>
           <Tab key="mobile" tab="手机号登录">
             {login.status === 'error' &&
@@ -73,17 +85,17 @@ export default class LoginPage extends Component {
             <Checkbox checked={this.state.autoLogin} onChange={this.changeAutoLogin}>
               自动登录
             </Checkbox>
-            <a style={{float: 'right'}} href="">
+            <Link style={{float: 'right'}} to="/forget-password">
               忘记密码
-            </a>
+            </Link>
           </div>
           <Submit loading={submitting}>登录</Submit>
-          <div className={styles.other}>
+          <div className="other">
             其他登录方式
-            <Icon className={styles.icon} type="alipay-circle" />
-            <Icon className={styles.icon} type="taobao-circle" />
-            <Icon className={styles.icon} type="weibo-circle" />
-            <Link className={styles.register} to="/user/register">
+            <Icon className="icon" type="alipay-circle" />
+            <Icon className="icon" type="taobao-circle" />
+            <Icon className="icon" type="weibo-circle" />
+            <Link className="register" to="/register">
               注册账户
             </Link>
           </div>

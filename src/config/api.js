@@ -1,6 +1,14 @@
-const commonUrl = '/saas20/api/2017063002/Apartment/free';
+const apiBaseUrl = '/saas20/api/2018020501/Apartment';
 export default {
+  Login: {
+    signinUrl: apiBaseUrl + '/staff/authenticate',
+    sendSignupCode: apiBaseUrl + '/message/sendcode',
+    signup: apiBaseUrl + '/customer/register',
+    authMobile: apiBaseUrl + '/customer/authen/mobile',
+    resetpwd: apiBaseUrl + '/customer/resetpwd/mobile',
+
+  },
   Home: {
-    fristData: commonUrl + '/largescreenview/energy/consumption1'
+    fristData: apiBaseUrl + '/largescreenview/energy/consumption1',
   }
 }

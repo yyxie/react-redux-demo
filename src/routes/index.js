@@ -4,14 +4,12 @@ import Page2 from './PageContainer/Page2';
 import BasicLayout from '../layouts/BasicLayout';
 import OtherLayout from '../layouts/OtherLayout'
 import Login from './User/Login';
+import Register from './User/Register';
 
 export const createRoutes = (store) => ([{
   path: '/',
-  component: OtherLayout,
-  indexRoute: Home,
-  childRoutes: [
-    Login
-  ]
+  component: BasicLayout,
+  indexRoute: Home
 }, {
   path: '/wrapper',
   component: BasicLayout,
@@ -19,7 +17,7 @@ export const createRoutes = (store) => ([{
     Page1,
     Page2,
   ]
-}])
+}, Login, ...Register])
 
 
 export default createRoutes

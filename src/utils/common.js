@@ -16,6 +16,7 @@ common.setLoading = (id = 'body') => {
     const computedStyle = getComputedStyle(ele, null);
     if (!computedStyle || !computedStyle.position || computedStyle.position != 'absolute') {
       ele.style.position = 'relative';
+      ele.style.height = '100%';
     }
 
     loadingStyles += ' load-child';

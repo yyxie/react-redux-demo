@@ -9,6 +9,7 @@
         "libraryName": "antd",
         "style": true
       }
-    ]
+    ],
+    "transform-decorators-legacy"
   ]
 }
