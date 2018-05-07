@@ -39,17 +39,6 @@ export default class ForgetPassword extends Component {
 
   componentWillReceiveProps(nextProps) {
     const account = this.props.form.getFieldValue('mail');
-    console.log('-------进入componentWillReceiveProps-------');
-    /* if (nextProps.register.status === 'ok') {
-       this.props.dispatch(
-         hashHistory.push({
-           pathname: '/register-result',
-           state: {
-             account,
-           },
-         })
-       );
-     }*/
   }
 
   componentWillUnmount() {
@@ -61,6 +50,7 @@ export default class ForgetPassword extends Component {
    */
   onGetCaptcha = () => {
     const {form} = this.props;
+    debugger;
     form.validateFieldsAndScroll(['mobile'], {force: true}, (err, values) => {
       if (!err) {
         let count = 59;
@@ -113,7 +103,7 @@ export default class ForgetPassword extends Component {
           cardno: '1'
         }, 'post', 'root')
           .then(result => {
-            message.success(Dict.Message.MobileCodeMessage);
+            message.success(result.message);
           })
           .catch(error => {
             clearInterval(this.interval);
@@ -208,7 +198,6 @@ export default class ForgetPassword extends Component {
     const {form, submitting} = this.props;
     const {getFieldDecorator} = form;
     const {count, prefix} = this.state;
-    console.log('-------进入render方法--------');
     return (
       <div className="main">
         <h3>注册</h3>

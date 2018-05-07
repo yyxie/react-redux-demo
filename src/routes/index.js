@@ -1,6 +1,7 @@
 import Home from './Home';
 import Page1 from './PageContainer/Page1';
 import Page2 from './PageContainer/Page2';
+import Center from './Center';
 import BasicLayout from '../layouts/BasicLayout';
 import OtherLayout from '../layouts/OtherLayout'
 import Login from './User/Login';
@@ -15,9 +16,9 @@ export const createRoutes = (store) => ([{
   component: BasicLayout,
   childRoutes: [
     Page1,
-    Page2,
+    Page2
   ]
-}, Login, ...Register])
+}, Login, ...Register, Center])
 
 
 export default createRoutes

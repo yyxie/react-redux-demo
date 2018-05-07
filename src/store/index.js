@@ -1,8 +1,10 @@
 import {createStore, combineReducers} from 'redux';
-import HomeReducer from '../routes/Home/reducer'
+import HomeReducer from '../routes/Home/reducer';
+import LoginReducer from '../routes/User/Login/reducer';
 
 const reducers = combineReducers({
-  HomeReducer
+  HomeReducer,
+  LoginReducer
 })
 const createStoreFun = () => {
   const store = createStore(

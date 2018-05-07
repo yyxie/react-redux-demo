@@ -47,8 +47,8 @@ export const routerLeave = (context) => {
  * @param httpSuccessHandle 请求成功的回调
  */
 export const createAsyncAction = (httpHandle, httpSuccessHandle) => {
-  httpHandle.then(() => {
-    httpSuccessHandle();
+  httpHandle.then(result => {
+    httpSuccessHandle(result);
   })
     .catch(err => {
       message.error(err.message);

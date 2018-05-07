@@ -21,14 +21,14 @@ axios.interceptors.response.use((response) => {
   const data = response.data;
   response.config.loadingEle && Common.removeLoading(response.config.loadingEle);
   // 根据返回的code值来做不同的处理（和后端约定）
-  if (data.errorCode !== -9999) {
+  if (data.errorCode === -9999) {
     // 不显示提示消息
     data.description = '';
     localStorage.removeItem('token');
     hashHistory.push('/login');
-    return data;
+    return Promise.reject(data);
   }
-  return Promise.reject(data);
+  return data;
 }, (err) => { // 这里是返回状态码不为200时候的错误处理
   if (err && err.response) {
     switch (err.response.status) {

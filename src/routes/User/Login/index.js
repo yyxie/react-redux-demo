@@ -1,4 +1,4 @@
-import LoginPage from './Login';
+import LoginPage from './container';
 
 export default {
   path: '/login',
