@@ -6,16 +6,26 @@ import Build from './components/build'
 /*import '../../styles/core.scss'*/
 const menuData = [{
   path: '/',
-  name: 'Home'
+  name: 'Home',
+  leaf: true,
+  key: '000000'
 }, {
-  path: '/path1',
-  name: 'path1'
-}, {
-  path: '/path2',
-  name: 'path2'
+  path: '/wrapper',
+  name: 'wrapper',
+  key: '0000001',
+  children: [{
+    path: '/wrapper/path1',
+    name: 'path1',
+    key: '0000003'
+  }, {
+    path: '/wrapper/path2',
+    name: 'path2',
+    key: '0000004'
+  }]
 }, {
   path: '/noFound',
-  name: 404
+  name: 404,
+  key: '0000003'
 }];
 const buildData = [{name: '铺软'}, {name: '电银'}];
 const BasicLayout = ({children}) => (

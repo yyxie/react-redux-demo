@@ -3,8 +3,6 @@ import {Link, hashHistory} from 'react-router';
 import {Checkbox, Alert, Icon, message} from 'antd';
 import Login from '../../../../components/Login';
 import './Login.less';
-import Api from '../../../../config/api';
-import {request} from '../../../../utils/request';
 
 const {Tab, UserName, Password, Mobile, Captcha, Submit} = Login;
 
@@ -25,7 +23,6 @@ export default class LoginPage extends Component {
   };
 
   handleSubmit(err, values) {
-    let {preUrl} = this.props.location.query;
     let {loginEvent} = this.props;
 
     if (!err) {

@@ -6,7 +6,6 @@ import {request} from '../../../utils/request';
 
 
 const signUp = function (dispatch, params, currentLocation) {
-  debugger;
   let {preUrl} = currentLocation.query;
   //Common.setLoading('root');
   createAsyncAction(request(Api.Login.signinUrl, params, 'post', 'root'), result => {
@@ -15,6 +14,7 @@ const signUp = function (dispatch, params, currentLocation) {
     let parms = {};
     if (result.errorCode === 0 && result.data) {
       localStorage.userInfo = JSON.stringify(result.data);
+      localStorage.timestamp = new Date().getTime();
       if (result.data.staffList.length === 0) {
         message.error('未创建雇员, 请联系管理员!');
       } else if (result.data.staffList.length === 1) {

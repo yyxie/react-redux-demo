@@ -10,8 +10,7 @@ export default class Center extends React.Component {
     hashHistory.push('/');
   }
   renderManagementCenter = () => {
-    const {staffList = []} = this.props;
-    console.log(staffList);
+    let staffList = this.props.staffList || JSON.parse(localStorage.getItem('useInfo_upms')).staffList;
     let list = staffList.map((item) => {
       return <div key={item.id} onClick={this.centerSelect.bind(this, item)} >{item.orgName}</div>
     })

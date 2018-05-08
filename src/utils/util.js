@@ -8,12 +8,13 @@ const checkAuthorized = () => {
 
 export const checkLogin = (nextState, replace, next) => {
   /* const rootState = store.getState().rootReducer;*/
-  const userInfoState = JSON.parse(localStorage.getItem('userInfoState'));
+  const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+  const timestamp = localStorage.getItem('timestamp');
 
   // 判断store 中是否有用户登录数据
   /*if (!rootState.isLogin) {*/
   // 不含有用户登录数据，判断 localStorage 中的数据是否可以使用
-  const pass = userInfoState && userInfoState.timestamp && new Date().getTime() - userInfoState.timestamp <= 60 * 60 * 1000;
+  const pass = userInfo && timestamp && new Date().getTime() - timestamp <= 60 * 60 * 1000;
 
   if (pass) {
     // userInfoState 存在，并且上一次离开在一小时以内，可以读取 localStorage 数据
