@@ -9,6 +9,6 @@ export default {
 
   },
   Home: {
-    fristData: apiBaseUrl + '/largescreenview/energy/consumption1',
+    fristData: apiBaseUrl + '/free/largescreenview/energy/consumption',
   }
 }

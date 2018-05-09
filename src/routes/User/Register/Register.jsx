@@ -1,15 +1,13 @@
 import React, {Component} from 'react';
-import {hashHistory, Link} from 'react-router';
-import {Form, Input, Button, Select, Row, Col, Popover, Progress, message} from 'antd';
+import {Link} from 'react-router';
+import {Form, Input, Button, Select, Row, Col, Popover, Progress, message, Checkbox, Modal} from 'antd';
 import styles from './Register.less';
 import {request} from '../../../utils/request';
 import Api from '../../../config/api';
 import Dict from '../../../config/dict';
+import AgreementTxt from './AgreementTxt';
 
 const FormItem = Form.Item;
-const {Option} = Select;
-const InputGroup = Input.Group;
-
 //密码强度提示
 const passwordStatusMap = {
   ok: <div className="success">强度：强</div>,
@@ -25,31 +23,18 @@ const passwordProgressMap = {
 
 @Form.create()
 export default class Register extends Component {
-  state = {
-    count: 0,
-    confirmDirty: false,
-    visible: false,
-    help: '',
-    prefix: '86',
-  };
-
   constructor(props) {
     super(props);
+    this.state = {
+      count: 0,
+      confirmDirty: false,
+      visible: false,
+      help: '',
+      showAgreementModal: false
+    };
   }
 
   componentWillReceiveProps(nextProps) {
-    const account = this.props.form.getFieldValue('mail');
-    console.log('-------进入componentWillReceiveProps-------');
-    /* if (nextProps.register.status === 'ok') {
-       this.props.dispatch(
-         hashHistory.push({
-           pathname: '/register-result',
-           state: {
-             account,
-           },
-         })
-       );
-     }*/
   }
 
   componentWillUnmount() {
@@ -119,20 +104,8 @@ export default class Register extends Component {
             this.setState({count: 0});
             message.error(error.message);
           });
-       /* this.props.dispatch({
-          type: 'register/submit',
-          payload: {
-            ...values,
-            prefix: this.state.prefix,
-          },
-        });*/
       }
     });
-  };
-
-  handleConfirmBlur = e => {
-    const {value} = e.target;
-    this.setState({confirmDirty: this.state.confirmDirty || !!value});
   };
   //两次密码校验
   checkConfirm = (rule, value, callback) => {
@@ -176,12 +149,6 @@ export default class Register extends Component {
       }
     }
   };
-
-  changePrefix = value => {
-    this.setState({
-      prefix: value,
-    });
-  };
   /**
    * 渲染密码长度提示
    * @returns {null}
@@ -203,28 +170,63 @@ export default class Register extends Component {
     ) : null;
   };
 
+  onAgreementClick = (e) => {
+    e.preventDefault();
+    this.setState({showAgreementModal: true})
+  };
+
+  setAgreementVisible = (isVisible) => {
+    this.setState({
+      showAgreementModal: isVisible
+    })
+  }
+
   render() {
     const {form, submitting} = this.props;
     const {getFieldDecorator} = form;
-    const {count, prefix} = this.state;
-    console.log('-------进入render方法--------');
+    const {count} = this.state;
     return (
-      <div className="main">
+      <div className="register">
         <h3>注册</h3>
         <Form onSubmit={this.handleSubmit}>
           <FormItem>
-            {getFieldDecorator('mail', {
+            {getFieldDecorator('mobile', {
               rules: [
                 {
                   required: true,
-                  message: '请输入邮箱地址！',
+                  message: '请输入手机号！',
                 },
                 {
-                  type: 'email',
-                  message: '邮箱地址格式错误！',
+                  pattern: /^1\d{10}$/,
+                  message: '手机号格式错误！',
                 },
               ],
-            })(<Input size="large" placeholder="邮箱" />)}
+            })(<Input size="large" placeholder="请输入常用手机号" />)}
+          </FormItem>
+          <FormItem>
+            <Row gutter={8}>
+              <Col
+                span={16}>
+                {getFieldDecorator('checkCode', {
+                  rules: [
+                    {
+                      required: true,
+                      message: '请输入验证码！',
+                    },
+                  ],
+                })(<Input size="large" placeholder="请输入短信验证码" />)}
+              </Col>
+              <Col span={8}>
+                <Button
+                  size="large"
+                  disabled={count}
+                  className="getCaptcha"
+                  onClick={this.onGetCaptcha}
+                >
+                  {count ? `${count} s` : '获取验证码'}
+                </Button>
+              </Col>
+            </Row>
           </FormItem>
           <FormItem help={this.state.help}>
             <Popover
@@ -247,7 +249,7 @@ export default class Register extends Component {
                     validator: this.checkPassword,
                   },
                 ],
-              })(<Input size="large" type="password" placeholder="至少6位密码，区分大小写" />)}
+              })(<Input size="large" type="password" placeholder="请输入6-16位密码" />)}
             </Popover>
           </FormItem>
           <FormItem>
@@ -264,69 +266,31 @@ export default class Register extends Component {
             })(<Input size="large" type="password" placeholder="确认密码" />)}
           </FormItem>
           <FormItem>
-            <InputGroup compact>
-              <Select
-                size="large"
-                value={prefix}
-                onChange={this.changePrefix}
-                style={{width: '20%'}}
-              >
-                <Option value="86">+86</Option>
-                <Option value="87">+87</Option>
-              </Select>
-              {getFieldDecorator('mobile', {
-                rules: [
-                  {
-                    required: true,
-                    message: '请输入手机号！',
-                  },
-                  {
-                    pattern: /^1\d{10}$/,
-                    message: '手机号格式错误！',
-                  },
-                ],
-              })(<Input size="large" style={{width: '80%'}} placeholder="11位手机号" />)}
-            </InputGroup>
-          </FormItem>
-          <FormItem>
-            <Row gutter={8}>
-              <Col span={16}>
-                {getFieldDecorator('checkCode', {
-                  rules: [
-                    {
-                      required: true,
-                      message: '请输入验证码！',
-                    },
-                  ],
-                })(<Input size="large" placeholder="验证码" />)}
-              </Col>
-              <Col span={8}>
-                <Button
-                  size="large"
-                  disabled={count}
-                  className="getCaptcha"
-                  onClick={this.onGetCaptcha}
-                >
-                  {count ? `${count} s` : '获取验证码'}
-                </Button>
-              </Col>
-            </Row>
+            {getFieldDecorator('confirm2')(<Checkbox>已阅读并同意</Checkbox>)}
+            <span onClick={this.onAgreementClick} className="agreen-txt-link">《使用条款及隐私说明》</span>
           </FormItem>
           <FormItem>
             <Button
               size="large"
               loading={submitting}
-              className="submit"
               type="primary"
               htmlType="submit"
+              style={{width: '100%'}}
             >
               注册
             </Button>
-            <Link className="login" to="/login">
-              使用已有账户登录
-            </Link>
           </FormItem>
         </Form>
+        <Link className="direct-login" to="/login">
+          已有账户,马上登录
+        </Link>
+        <Modal
+          visible={this.state.showAgreementModal}
+          cancelText="关闭"
+          onCancel={() => this.setAgreementVisible(false)}
+        >
+          <AgreementTxt />
+        </Modal>
       </div>
     );
   }

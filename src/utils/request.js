@@ -2,13 +2,13 @@ import axios from 'axios';
 import {hashHistory} from 'react-router';
 import qs from 'qs';
 import {message} from 'antd';
-
 import Common from './common';
 
 //拦截发送请求
 axios.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
   config.headers['access-token'] = token;
+  //添加loading
   config.loadingEle && Common.setLoading(config.loadingEle);
   return config;
 }, (error) => {
@@ -16,12 +16,12 @@ axios.interceptors.request.use((config) => {
 })
 
 // 拦截响应response，并做一些错误处理
-// eslint-disable-next-line consistent-return
 axios.interceptors.response.use((response) => {
   const data = response.data;
+  //删除loading
   response.config.loadingEle && Common.removeLoading(response.config.loadingEle);
   // 根据返回的code值来做不同的处理（和后端约定）
-  if (data.errorCode === -9999) {
+  if (data.errorCode === -9999) { //无权限
     // 不显示提示消息
     data.description = '';
     localStorage.removeItem('token');
@@ -81,6 +81,7 @@ axios.interceptors.response.use((response) => {
   } else {
     err.message = '网络断了';
   }
+  //删除loading
   err.config.loadingEle && Common.removeLoading(err.config.loadingEle);
   return Promise.reject(err);
 });
@@ -91,7 +92,7 @@ const contentTypeMapping = {
   'form-data': 'multipart/form-data',
   text: 'text/plain',
   json: 'application/json'
-}
+};
 
 export const request = (url, param, method = 'get', loadingEle, dataType = 'key-value', option = {}) => {
   return axios({

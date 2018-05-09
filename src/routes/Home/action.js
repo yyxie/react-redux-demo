@@ -4,7 +4,7 @@ import {request} from '../../utils/request';
 
 const requestData = (dispatch) => {
   //Common.setLoading('root');
-  createAsyncAction(request(Api.Home.fristData, {}, 'post', 'root', root), response => {
+  createAsyncAction(request(Api.Home.fristData, {}, 'post', 'root', 'json'), response => {
     //Common.removeLoading('root');
     console.log('进入then方法');
     dispatch({
