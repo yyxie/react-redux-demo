@@ -1,9 +1,8 @@
-/* eslint-disable global-require */
-/*import Home from './container'*/
+import Home from './container'
+import {checkLogin, routerLeave} from '../../utils/util';
 
 export default {
-  getComponent(nextState, cb) {
-    const Home = require('./container').default;
-    cb(null, Home)
-  }
+  component: Home,
+  onEnter: checkLogin,
+  onLeave: routerLeave
 }
