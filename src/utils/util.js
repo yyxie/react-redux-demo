@@ -9,7 +9,7 @@ const checkAuthorized = () => {
 
 };
 
-function checkSite() {
+export const checkSite = function () {
   const site = localStorage[constants.Variable.LOCALSTORAGE_KEY.siteType];
 
   return !!(site && site === constants.Variable.systemConfig.siteType);
