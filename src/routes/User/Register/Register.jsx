@@ -4,7 +4,7 @@ import {Form, Input, Button, Select, Row, Col, Popover, Progress, message} from 
 import styles from './Register.less';
 import {request} from '../../../utils/request';
 import Api from '../../../config/api';
-import Dict from '../../../config/dict';
+import constants from '../../../config/constants';
 
 const FormItem = Form.Item;
 const {Option} = Select;
@@ -78,7 +78,7 @@ export default class Register extends Component {
           type: '00'
         }, 'post', 'root')
           .then(result => {
-            message.success(Dict.Message.MobileCodeMessage);
+            message.success(constants.Message.MobileCodeMessage);
           })
           .catch(error => {
             clearInterval(this.interval);
@@ -112,7 +112,7 @@ export default class Register extends Component {
           password: values.password
         }, 'post', 'root')
           .then(result => {
-            message.success(Dict.Message.MobileCodeMessage);
+            message.success(constants.Message.MobileCodeMessage);
           })
           .catch(error => {
             clearInterval(this.interval);

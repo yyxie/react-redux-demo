@@ -1,9 +1,8 @@
 import {message} from 'antd';
 import {hashHistory} from 'react-router';
 import Api from '../../../config/api';
-import {createAsyncAction} from '../../../utils/util'
+import {createAsyncAction, setAllUserInfo} from '../../../utils/util'
 import {request} from '../../../utils/request';
-
 
 const signUp = function (dispatch, params, currentLocation) {
   let {preUrl} = currentLocation.query;
@@ -13,8 +12,8 @@ const signUp = function (dispatch, params, currentLocation) {
     let redirectUrl = '/';
     let parms = {};
     if (result.errorCode === 0 && result.data) {
-      localStorage.userInfo = JSON.stringify(result.data);
-      localStorage.timestamp = new Date().getTime();
+      setAllUserInfo(result.data);
+
       if (result.data.staffList.length === 0) {
         message.error('未创建雇员, 请联系管理员!');
       } else if (result.data.staffList.length === 1) {

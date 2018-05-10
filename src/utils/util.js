@@ -1,27 +1,90 @@
 import {message} from 'antd';
 import {hashHistory} from 'react-router';
+import Cookies from 'js-cookie';
+
+import constants from '../config/constants';
 
 let preUrl = '';//保存上一次url
 const checkAuthorized = () => {
 
+};
+
+function checkSite() {
+  const site = localStorage[constants.Variable.LOCALSTORAGE_KEY.siteType];
+
+  return !!(site && site === constants.Variable.systemConfig.siteType);
+}
+
+export const isEmpty = function (value) {
+  // 本身为空直接返回true
+  if (value == null) return true;
+
+  // 然后可以根据长度判断，在低版本的ie浏览器中无法这样判断。
+  if (value.length > 0) return false;
+  if (value.length === 0) return true;
+
+  //最后通过属性长度判断。
+  for (const key in value) {
+    if (Object.prototype.hasOwnProperty.call(value, key)) return false;
+  }
+
+  return true;
+}
+
+export const getUserInfo = function () {
+  const userInfo = localStorage.getItem(constants.Variable.LOCALSTORAGE_KEY.userInfo);
+
+  if (userInfo) {
+    return JSON.parse(userInfo);
+  }
+
+  return {};
+}
+
+export const isLogin = function () {
+  const userInfo = localStorage.getItem(constants.Variable.LOCALSTORAGE_KEY.userInfo);
+  const currentStaff = localStorage.getItem(constants.Variable.LOCALSTORAGE_KEY.currentStaff);
+
+  // 满足一下条件
+  // 1. localStorage中获取person,staffList
+  // 2. currentStaff 当前staff数据为空
+  // 3. cookie 未获取到token
+  // 4. siteType和系统不一致
+
+  if (isEmpty(userInfo) || isEmpty(currentStaff)
+    || !Cookies.get(constants.Variable.tokenCookieName)
+    || checkSite() === false) {
+    return false;
+  }
+
+  return true;
+}
+
+export const setUserInfo = function (userData) {
+  localStorage[constants.Variable.LOCALSTORAGE_KEY.userInfo] = JSON.stringify(userData);
+  localStorage[constants.Variable.LOCALSTORAGE_KEY.siteType] = constants.Variable.systemConfig.siteType;
+
+  localStorage.timestamp = new Date().getTime();
+}
+
+export const setCurrentUser = function (user) {
+  localStorage[constants.Variable.LOCALSTORAGE_KEY.currentStaff] = JSON.stringify(user);
+
+  localStorage.timestamp = new Date().getTime();
+}
+
+export const setAllUserInfo = function (userData) {
+  Cookies.set(constants.Variable.tokenCookieName, userData.person.ticket, {expires: 1});
+
+  setUserInfo(userData);
+
+  if (userData.staffList.length === 1) {
+    setCurrentUser(userData.staffList[0]);
+  }
 }
 
 export const checkLogin = (nextState, replace, next) => {
-  /* const rootState = store.getState().rootReducer;*/
-  const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-  const timestamp = localStorage.getItem('timestamp');
-
-  // 判断store 中是否有用户登录数据
-  /*if (!rootState.isLogin) {*/
-  // 不含有用户登录数据，判断 localStorage 中的数据是否可以使用
-  const pass = userInfo && timestamp && new Date().getTime() - timestamp <= 60 * 60 * 1000;
-
-  if (pass) {
-    // userInfoState 存在，并且上一次离开在一小时以内，可以读取 localStorage 数据
-    //const storedUserInfo = userInfoState.userInfo;
-
-    // 'LOGIN' 将获取的数据更新到 store 中
-    //store.dispatch({type: 'LOGIN', msg: storedUserInfo});
+  if (isLogin()) {
     checkAuthorized();
     next();
   } else {
@@ -33,15 +96,13 @@ export const checkLogin = (nextState, replace, next) => {
     });
     next();
   }
-  /* } else {
-     // store 中 含有 用户登录数据，直接进入相应页面
-     next();
-   }*/
-}
+};
+
 export const routerLeave = (context) => {
   debugger;
   preUrl = context.location.pathname;
-}
+};
+
 /**
  * 创建异步的action
  * @param httpHandle axios请求
@@ -54,5 +115,4 @@ export const createAsyncAction = (httpHandle, httpSuccessHandle) => {
     .catch(err => {
       message.error(err.message);
     })
-}
-
+};
