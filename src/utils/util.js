@@ -113,6 +113,6 @@ export const createAsyncAction = (httpHandle, httpSuccessHandle) => {
     httpSuccessHandle(result);
   })
     .catch(err => {
-      message.error(err.message);
+      //message.error(err.message);
     })
 };
