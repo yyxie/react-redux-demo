@@ -9,12 +9,14 @@ const checkAuthorized = () => {
 
 };
 
+// 判断siteType的一致性
 export const checkSite = function () {
   const site = localStorage[constants.Variable.LOCALSTORAGE_KEY.siteType];
 
   return !!(site && site === constants.Variable.systemConfig.siteType);
 }
 
+// 判断字符串
 export const isEmpty = function (value) {
   // 本身为空直接返回true
   if (value == null) return true;
@@ -31,6 +33,7 @@ export const isEmpty = function (value) {
   return true;
 }
 
+// 获取所有用户信息
 export const getUserInfo = function () {
   const userInfo = localStorage.getItem(constants.Variable.LOCALSTORAGE_KEY.userInfo);
 
@@ -41,6 +44,7 @@ export const getUserInfo = function () {
   return {};
 }
 
+// 判断是否登陆，用于大部分权限控制页面
 export const isLogin = function () {
   const userInfo = localStorage.getItem(constants.Variable.LOCALSTORAGE_KEY.userInfo);
   const currentStaff = localStorage.getItem(constants.Variable.LOCALSTORAGE_KEY.currentStaff);
@@ -50,7 +54,6 @@ export const isLogin = function () {
   // 2. currentStaff 当前staff数据为空
   // 3. cookie 未获取到token
   // 4. siteType和系统不一致
-
   if (isEmpty(userInfo) || isEmpty(currentStaff)
     || !Cookies.get(constants.Variable.tokenCookieName)
     || checkSite() === false) {
@@ -60,6 +63,7 @@ export const isLogin = function () {
   return true;
 }
 
+// 设置登陆返回的所有用户信息，包含网站类型
 export const setUserInfo = function (userData) {
   localStorage[constants.Variable.LOCALSTORAGE_KEY.userInfo] = JSON.stringify(userData);
   localStorage[constants.Variable.LOCALSTORAGE_KEY.siteType] = constants.Variable.systemConfig.siteType;
@@ -67,12 +71,18 @@ export const setUserInfo = function (userData) {
   localStorage.timestamp = new Date().getTime();
 }
 
+// 设置选中运营商身份的员工信息
 export const setCurrentUser = function (user) {
   localStorage[constants.Variable.LOCALSTORAGE_KEY.currentStaff] = JSON.stringify(user);
 
   localStorage.timestamp = new Date().getTime();
 }
 
+// 设置完整的用户登陆信息
+// 包含
+// 1. token(cookie)
+// 2. userInfo
+// 3. currentStaff(可选)，staffList长度为1时，自动设置
 export const setAllUserInfo = function (userData) {
   Cookies.set(constants.Variable.tokenCookieName, userData.person.ticket, {expires: 1});
 
