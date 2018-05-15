@@ -1,10 +1,6 @@
 import RegisterPage from './Register';
-import ForgetPassword from './ForgetPassword';
 
-export default [{
+export default {
   path: '/register',
   component: RegisterPage
-}, {
-  path: '/forget-password',
-  component: ForgetPassword
-}]
+}

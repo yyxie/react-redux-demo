@@ -1,4 +1,4 @@
-import Page1 from './container';
+import Page1 from './components';
 import {checkLogin, routerLeave} from '../../../utils/util';
 
 export default {

@@ -1,6 +1,7 @@
 /* eslint-disable */
 
 const common = {};
+/*
 common.loadingObjects = {};
 
 // 参数 id: 需要loading遮罩覆盖的元素 id ,body 元素直接传入body字符串即可
@@ -29,7 +30,7 @@ common.setLoading = (id = 'body') => {
     // 全局
     ele = document.body;
 
-    loadingStyles += ' load-body';
+    loadingStyles += ' loadingStyles';
     // 删除其他所有
     Object.keys(common.loadingObjects)
       .forEach((key) => {
@@ -65,5 +66,6 @@ common.removeLoading = (id = 'body') => {
     delete common.loadingObjects[id];
   }
 };
+*/
 
 export default common;

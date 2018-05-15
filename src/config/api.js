@@ -1,5 +1,7 @@
 const apiBaseUrl = '/saas20/api/2018020501/Apartment';
-
+/**
+ * 接口url
+ */
 export default {
   Login: {
     signinUrl: apiBaseUrl + '/staff/authenticate',

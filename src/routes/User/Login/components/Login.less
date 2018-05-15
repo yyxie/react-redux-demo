@@ -1,9 +1,9 @@
 @import '~antd/lib/style/themes/default.less';
-
-.main {
+@red-hightlight: #F54B5E;
+.login-container {
   width: 368px;
   margin: 0 auto;
-
+  text-align: center;
   .icon {
     font-size: 24px;
     color: rgba(0, 0, 0, 0.2);
@@ -16,14 +16,19 @@
       color: @primary-color;
     }
   }
-
-  .other {
+  .lf {
     text-align: left;
-    margin-top: 24px;
+  }
+  .forget-password {
+    color: @red-hightlight;
+    float: right;
+  }
+  .to-register {
+    text-align: center;
+    margin-top: 20px;
     line-height: 22px;
-
-    .register {
-      float: right;
+    .go-register {
+      color: @red-hightlight;
     }
   }
 }

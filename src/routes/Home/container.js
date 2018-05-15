@@ -11,7 +11,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 }
 const mapStateToProps = (state, ownProps) => {
   return {
-    list: state.HomeReducer.data
+    list: state.HomeReducer.list
   }
 }
 

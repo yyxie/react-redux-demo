@@ -5,6 +5,7 @@ import Center from './Center';
 import BasicLayout from '../layouts/BasicLayout';
 import Login from './User/Login';
 import Register from './User/Register';
+import ForgetPassword from './User/ForgetPassword';
 
 export const createRoutes = (store) => ([{
   path: '/',
@@ -20,7 +21,7 @@ export const createRoutes = (store) => ([{
     Page1,
     Page2
   ]
-}, Login, ...Register, Center])
+}, Login, Register, Center, ForgetPassword])
 
 
 export default createRoutes

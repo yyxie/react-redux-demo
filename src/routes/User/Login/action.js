@@ -6,9 +6,7 @@ import {request} from '../../../utils/request';
 
 const signUp = function (dispatch, params, currentLocation) {
   let {preUrl} = currentLocation.query;
-  //Common.setLoading('root');
   createAsyncAction(request(Api.Login.signinUrl, params, 'post', 'root'), result => {
-    console.log('进入then方法');
     let redirectUrl = '/';
     let parms = {};
     if (result.errorCode === 0 && result.data) {

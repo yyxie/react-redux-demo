@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
 import {Link, hashHistory} from 'react-router';
-import {Checkbox, Alert, Icon, message} from 'antd';
-import Login from '../../../../components/Login';
+import {Checkbox, Alert, Form, Input, Button} from 'antd';
 import './Login.less';
 
-const {Tab, UserName, Password, Mobile, Captcha, Submit} = Login;
-
+const FormItem = Form.Item;
+@Form.create()
 export default class LoginPage extends Component {
   state = {
     type: 'account',
@@ -22,41 +21,44 @@ export default class LoginPage extends Component {
     this.setState({type});
   };
 
-  handleSubmit(err, values) {
+  handleSubmit(e) {
+    debugger;
     let {loginEvent} = this.props;
+    e.preventDefault();
+    this.props.form.validateFields({force: true}, (err, values) => {
+      if (!err) {
+        loginEvent({
+          username: values.userName,
+          pwd: values.passWord
+        });
+      }
+    });
+    /* request(Api.Login.signinUrl, {
+       username: values.userName,
+       pwd: values.passWord
+     }, 'post', 'root')
+       .then(result => {
+         console.log('进入then方法');
+         let redirectUrl = '/';
+         let parms = {};
+         if (result.errorCode === 0 && result.data) {
+           localStorage.userInfo = JSON.stringify(result.data);
+           if (result.data.staffList.length === 0) {
+             message.error('未创建雇员, 请联系管理员!');
+           } else if (result.data.staffList.length === 1) {
+             redirectUrl = '/'
+             parms = {id: result.data.person.id, staffId: result.data.staffList[0].id};
+           } else if (result.data.staffList.length > 1) {
+             redirectUrl = '/center';
+             parms = {id: result.data.person.id};
+           }
 
-    if (!err) {
-      loginEvent({
-        username: values.userName,
-        pwd: values.passWord
-      });
-     /* request(Api.Login.signinUrl, {
-        username: values.userName,
-        pwd: values.passWord
-      }, 'post', 'root')
-        .then(result => {
-          console.log('进入then方法');
-          let redirectUrl = '/';
-          let parms = {};
-          if (result.errorCode === 0 && result.data) {
-            localStorage.userInfo = JSON.stringify(result.data);
-            if (result.data.staffList.length === 0) {
-              message.error('未创建雇员, 请联系管理员!');
-            } else if (result.data.staffList.length === 1) {
-              redirectUrl = '/'
-              parms = {id: result.data.person.id, staffId: result.data.staffList[0].id};
-            } else if (result.data.staffList.length > 1) {
-              redirectUrl = '/center';
-              parms = {id: result.data.person.id};
-            }
-
-            if (preUrl) {
-              redirectUrl = preUrl;
-            }
-            hashHistory.push({pathname: redirectUrl, query: parms});
-          }
-        })*/
-    }
+           if (preUrl) {
+             redirectUrl = preUrl;
+           }
+           hashHistory.push({pathname: redirectUrl, query: parms});
+         }
+       })*/
   }
 
   changeAutoLogin = e => {
@@ -70,46 +72,58 @@ export default class LoginPage extends Component {
   };
 
   render() {
-    const {login = {}, submitting} = this.props;
+    const {login = {}, submitting, form} = this.props;
     const {type} = this.state;
+    const {getFieldDecorator} = form;
     return (
-      <div className="main">
-        <Login defaultActiveKey={type} onTabChange={this.onTabChange} onSubmit={this.handleSubmit}>
-          <Tab key="account" tab="账户密码登录">
-            {login.status === 'error' &&
-            login.type === 'account' &&
-            !login.submitting &&
-            this.renderMessage('账户或密码错误（admin/888888）')}
-            <UserName name="userName" placeholder="admin/user" />
-            <Password name="passWord" placeholder="888888/123456" />
-          </Tab>
-          <Tab key="mobile" tab="手机号登录">
-            {login.status === 'error' &&
-            login.type === 'mobile' &&
-            !login.submitting &&
-            this.renderMessage('验证码错误')}
-            <Mobile name="mobile" />
-            <Captcha name="captcha" />
-          </Tab>
-          <div>
+      <div className="login-container">
+        <Form onSubmit={this.handleSubmit}>
+          <FormItem>
+            {getFieldDecorator('userName', {
+              rules: [
+                {
+                  required: true,
+                  message: '请输入手机号！',
+                },
+                {
+                  pattern: /^1\d{10}$/,
+                  message: '手机号格式错误！',
+                },
+              ],
+            })(<Input size="large" placeholder="请输入常用手机号" />)}
+          </FormItem>
+          <FormItem help={this.state.help}>
+            {getFieldDecorator('passWord', {
+              rules: [
+                {
+                  validator: this.checkPassword,
+                },
+              ],
+            })(<Input size="large" type="password" placeholder="请输入6-16位密码" />)}
+          </FormItem>
+          <div className="ant-form-item lf">
             <Checkbox checked={this.state.autoLogin} onChange={this.changeAutoLogin}>
-              自动登录
+              一周之内免登录
             </Checkbox>
-            <Link style={{float: 'right'}} to="/forget-password">
+            <Link className="forget-password" to="/forget-password">
               忘记密码
             </Link>
           </div>
-          <Submit loading={submitting}>登录</Submit>
-          <div className="other">
-            其他登录方式
-            <Icon className="icon" type="alipay-circle" />
-            <Icon className="icon" type="taobao-circle" />
-            <Icon className="icon" type="weibo-circle" />
-            <Link className="register" to="/register">
-              注册账户
-            </Link>
-          </div>
-        </Login>
+          <FormItem>
+            <Button
+              size="large"
+              loading={submitting}
+              type="primary"
+              htmlType="submit"
+              style={{width: '100%'}}
+            >
+              登录
+            </Button>
+          </FormItem>
+        </Form>
+        <Link className="to-register" to="/register">
+          没有帐号，<span className="go-register">马上注册</span>
+        </Link>
       </div>
     );
   }

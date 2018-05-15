@@ -2,14 +2,14 @@ import axios from 'axios';
 import {hashHistory} from 'react-router';
 import qs from 'qs';
 import {message} from 'antd';
-import Common from './common';
+import {renderLoading, removeLoading} from '../components/Loading'
 
 //拦截发送请求
 axios.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
   config.headers['access-token'] = token;
   //添加loading
-  config.loadingEle && Common.setLoading(config.loadingEle);
+  config.loadingEle && renderLoading(config.loadingEle);
   return config;
 }, (error) => {
   return Promise.reject(error);
@@ -19,7 +19,7 @@ axios.interceptors.request.use((config) => {
 axios.interceptors.response.use((response) => {
   const data = response.data;
   //删除loading
-  response.config.loadingEle && Common.removeLoading(response.config.loadingEle);
+  response.config.loadingEle && removeLoading(response.config.loadingEle);
   // 根据返回的code值来做不同的处理（和后端约定）
   if (data.errorCode === -9999) { //无权限
     // 不显示提示消息
@@ -82,7 +82,7 @@ axios.interceptors.response.use((response) => {
     err.message = '网络断了';
   }
   //删除loading
-  err.config.loadingEle && Common.removeLoading(err.config.loadingEle);
+  err.config.loadingEle && removeLoading(err.config.loadingEle);
   return Promise.reject(err);
 });
 

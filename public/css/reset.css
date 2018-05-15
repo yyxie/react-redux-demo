@@ -86,7 +86,7 @@ img {
 
 a {
   outline: none;
-  color: #666 !important;
+  color: #666;
 }
 
 a:active {

@@ -4,6 +4,10 @@ import LoginView from './components'
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
+    /**
+     * 登录事件
+     * @param params
+     */
     loginEvent: (params) => {
       login(dispatch, params, ownProps.location);
     }
