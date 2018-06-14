@@ -60,7 +60,7 @@ class Menu extends React.Component {
         result.push(
           <Link
             key={item.key}
-            className="menu-item"
+            className="top-menu-item"
             activeClassName="route--active"
             to={item.path}
             onClick={this.renderSecondMenu.bind(this, item.children, item.path, isOneLevelMenu)}

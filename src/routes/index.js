@@ -6,6 +6,8 @@ import BasicLayout from '../layouts/BasicLayout';
 import Login from './User/Login';
 import Register from './User/Register';
 import ForgetPassword from './User/ForgetPassword';
+import Editor from './Editor';
+import BraftEditor from './BraftEditor';
 
 export const createRoutes = (store) => ([{
   path: '/',
@@ -19,7 +21,9 @@ export const createRoutes = (store) => ([{
   },
   childRoutes: [
     Page1,
-    Page2
+    Page2,
+    Editor,
+    BraftEditor
   ]
 }, Login, Register, Center, ForgetPassword])
 

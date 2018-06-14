@@ -86,7 +86,8 @@
     "react/jsx-no-target-blank": 0,
     "no-debugger": 0,
     "class-methods-use-this": 0,
-    "no-restricted-syntax": 0
+    "no-restricted-syntax": 0,
+    "no-bitwise": 0
   },
   "plugins": [
     "jsx-a11y"
