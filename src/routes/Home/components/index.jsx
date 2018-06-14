@@ -1,7 +1,8 @@
 import React from 'react';
-import {Button, Table} from 'antd';
+import {Button, Table, Icon} from 'antd';
 import '../home.less';
 import Notify from '../../../components/Notify';
+import {TopNotify, TopNotifyContainTitle} from '../../../components/TopNotify';
 
 const Column = Table.Column;
 export default class HomeView extends React.Component {
@@ -12,10 +13,19 @@ export default class HomeView extends React.Component {
   }
   showDialog = () => {
     Notify.info({
-      content: <div>fffff</div>,
+      content: '文字说明',
       duration: 3000
     });
   }
+  showTopTip = () => {
+    debugger;
+    TopNotify.error('文字说明', '文字title');
+  }
+  showTopTipContainTitle = () => {
+    debugger;
+    TopNotifyContainTitle.error('文字说明', '文字title');
+  }
+
   render() {
     const {list, requestDataEvent} = this.props;
     return (
@@ -30,6 +40,10 @@ export default class HomeView extends React.Component {
         </Table>
         <Button type="primary" onClick={this.showTip}>成功提示</Button>
         <Button type="primary" onClick={this.showDialog}>确认框(自动消失)</Button>
+        <Button type="primary" onClick={this.showTopTip}>提示框(自动消失)</Button>
+        <Button type="primary" onClick={this.showTopTipContainTitle}>提示框含有title(自动消失)</Button>
+        <Button type="primary">Backward <Icon type="right" /></Button>
+        <div style={{background: 'red', display: 'inline-block'}}>888</div>
       </div>
     )
   }

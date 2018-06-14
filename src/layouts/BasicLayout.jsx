@@ -22,6 +22,14 @@ const menuData = [{
     path: '/wrapper/path2',
     name: 'path2',
     key: '0000004'
+  }, {
+    path: '/wrapper/editor',
+    name: 'editor',
+    key: '0000005'
+  }, {
+    path: '/wrapper/braft-editor',
+    name: 'braftEditor',
+    key: '0000005'
   }]
 }, {
   path: '/noFound',
