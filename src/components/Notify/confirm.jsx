@@ -27,6 +27,8 @@ const ConfirmDialog = (props) => {
       onCancel={close.bind(this, {triggerCancel: true})}
       visible={visible}
       title=""
+      animation="zoom"
+      maskAnimation="fade"
       transitionName="zoom"
       footer=""
       maskTransitionName="fade"

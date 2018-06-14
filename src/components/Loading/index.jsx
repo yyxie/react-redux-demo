@@ -3,7 +3,7 @@ import ReactDom from 'react-dom';
 import {Spin} from 'antd';
 import './ajaxloading.less';
 
-class Loading extends React.Component {
+/*class Loading extends React.Component {
   constructor(props) {
     super(props)
   }
@@ -11,14 +11,14 @@ class Loading extends React.Component {
   render() {
     return (
       <Spin />
-     /* <div className="ajax-async-spin-container">
+     /!* <div className="ajax-async-spin-container">
         <p>
           <i className="fa fa-spinner fa-pulse fa-2x fa-fw margin-bottom ajax-async-spin" />
         </p>
-      </div>*/
+      </div>*!/
     )
   }
-}
+}*/
 
 //存放loading
 let loadingObjects = {};
