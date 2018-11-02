@@ -59,8 +59,8 @@ class Menu extends React.Component {
       menuData.forEach((item, index) => {
         result.push(
           <Link
+            className="top-menu-item hello"
             key={item.key}
-            className="top-menu-item"
             activeClassName="route--active"
             to={item.path}
             onClick={this.renderSecondMenu.bind(this, item.children, item.path, isOneLevelMenu)}

@@ -8,6 +8,9 @@ import Register from './User/Register';
 import ForgetPassword from './User/ForgetPassword';
 import Editor from './Editor';
 import BraftEditor from './BraftEditor';
+import Intro from './Intro';
+import IntroJs from './IntroJs';
+import Drag from './Drag';
 
 export const createRoutes = (store) => ([{
   path: '/',
@@ -23,7 +26,10 @@ export const createRoutes = (store) => ([{
     Page1,
     Page2,
     Editor,
-    BraftEditor
+    BraftEditor,
+    Intro,
+    IntroJs,
+    Drag
   ]
 }, Login, Register, Center, ForgetPassword])
 

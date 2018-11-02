@@ -31,9 +31,19 @@ export default class Demo extends React.Component {
       initialContent: '<p>Hello World!</p>',
       onChange: this.handleChange,
       onRawChange: this.handleRawChange,
-      pasteMode: 'text',
+     /* pasteMode: 'text',*/
       media: {
-        uploadFn: (param) => {
+        allowPasteImage: true, // 是否允许直接粘贴剪贴板图片（例如QQ截图等）到编辑器
+        image: true, // 开启图片插入功能
+        video: true, // 开启视频插入功能
+        audio: true, // 开启音频插入功能
+        validateFn: null, // 指定本地校验函数，说明见下文
+        uploadFn: null, // 指定上传函数，说明见下文
+        removeConfirmFn: null, // 指定删除前的确认函数，说明见下文
+        onRemove: null, // 指定媒体库文件被删除时的回调，参数为被删除的媒体文件列表(数组)
+        onChange: null, // 指定媒体库文件列表发生变化时的回调，参数为媒体库文件列表(数组)
+        onInsert: null, // 指定从媒体库插入文件到编辑器时的回调，参数为被插入的媒体文件列表(数组)
+    /*    uploadFn: (param) => {
           const successFn = () => {
             debugger;
             // 假设服务端直接返回文件上传后的地址
@@ -44,10 +54,10 @@ export default class Demo extends React.Component {
                 id: '3456777',
                 title: 'img',
                 alt: 'ffffff',
-                /* loop: true, // 指定音视频是否循环播放
+                /!* loop: true, // 指定音视频是否循环播放
                  autoPlay: true, // 指定音视频是否自动播放
                  controls: true, // 指定音视频是否显示控制栏
-                 poster: 'http://xxx/xx.png', // 指定视频播放器的封面*/
+                 poster: 'http://xxx/xx.png', // 指定视频播放器的封面*!/
               }
             })
           }
@@ -64,7 +74,7 @@ export default class Demo extends React.Component {
             })
           }
           successFn();
-        }
+        }*/
       }
     }
 
@@ -74,7 +84,7 @@ export default class Demo extends React.Component {
           width: '150px',
           float: 'left'
         }}>
-          <Button onClick={this.insertContent}>添加内容</Button>
+          <Button onClick={this.insertContent} data-step="2" data-intro="添加内容!">添加内容</Button>
           <Button onClick={this.saveClick}>保存</Button>
           <Button onClick={this.replaceContent}>替换内容</Button>
         </div>
