@@ -41,6 +41,16 @@ export const createRoutes = (store) => ([{
     BraftEditor
   ]
 }, {
+  path: '/intro',
+  component: BasicLayout,
+  indexRoute: {
+    onEnter: (nextState, replace) => replace('/intro/intro')
+  },
+  childRoutes: [
+    Intro,
+    IntroJs,
+  ]
+}, {
   path: '/animate',
   component: BasicLayout,
   indexRoute: {

@@ -25,14 +25,6 @@ const menuData = [{
     name: 'path2',
     key: '00000012'
   }, {
-    path: '/wrapper/intro',
-    name: 'intro',
-    key: '00000015'
-  }, {
-    path: '/wrapper/introjs',
-    name: '引导组件',
-    key: '00000016'
-  }, {
     path: '/wrapper/drag',
     name: '拖拽',
     key: '00000017'
@@ -61,9 +53,22 @@ const menuData = [{
   }
   ]
 }, {
+  path: '/intro',
+  name: '引导',
+  key: '0000003',
+  children: [{
+    path: '/intro/intro',
+    name: 'intro',
+    key: '00000015'
+  }, {
+    path: '/intro/introjs',
+    name: '引导组件',
+    key: '00000016'
+  }]
+}, {
   path: '/noFound',
   name: 404,
-  key: '0000003'
+  key: '0000004'
 }];
 const buildData = [{name: '铺软'}, {name: '电银'}];
 /*const startIntro = () => {
