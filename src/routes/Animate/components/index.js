@@ -1,6 +1,6 @@
 import React from 'react';
 import Animate from 'rc-animate';
-import {Button} from '@unovo/antd';
+import {Button} from 'antd';
 import './style.less';
 
 export default class Test extends React.Component {
@@ -28,12 +28,12 @@ export default class Test extends React.Component {
 
     return (
       <div>
-        <Button onClick={this.switchContent}>点我</Button>
+        <Button onClick={this.switchContent}>开启动画</Button>
         <div>
           <Animate
             component=""
             transitionName="test">
-            {this.state.enter ? <div key="1" style={style}/> : null}
+            {this.state.enter ? <div key="1" style={style}>ffff</div> : null}
           </Animate>
         </div>
       </div>

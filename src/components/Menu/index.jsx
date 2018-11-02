@@ -28,8 +28,6 @@ class Menu extends React.Component {
       menuData.forEach((item, index) => {
         if (item.path === path) {
           children = item.children;
-        } else if (item.children) {
-          this.getMenuChild(item.children)
         }
       })
     }

@@ -1,8 +1,7 @@
 import React from 'react';
-/*import IntroJs from 'intro.js';*/
-import {Steps, Hints} from 'intro.js-react';
+import {Steps} from 'intro.js-react';
 import PropTypes from 'prop-types';
-import {Avatar, Badge, Icon, Card, Button} from 'antd';
+import {Avatar, Badge, Icon} from 'antd';
 import Menu from '../components/Menu';
 import './BasicLayout.less';
 import Build from './components/build';
@@ -20,32 +19,47 @@ const menuData = [{
   children: [{
     path: '/wrapper/path1',
     name: 'path1',
-    key: '0000003'
+    key: '00000011'
   }, {
     path: '/wrapper/path2',
     name: 'path2',
-    key: '0000004'
-  }, {
-    path: '/wrapper/editor',
-    name: 'editor',
-    key: '0000005'
-  }, {
-    path: '/wrapper/braft-editor',
-    name: 'braftEditor',
-    key: '0000006'
+    key: '00000012'
   }, {
     path: '/wrapper/intro',
     name: 'intro',
-    key: '0000007'
+    key: '00000015'
   }, {
     path: '/wrapper/introjs',
-    name: 'introjs',
-    key: '0000008'
+    name: '引导组件',
+    key: '00000016'
   }, {
     path: '/wrapper/drag',
-    name: 'drag',
-    key: '0000009'
+    name: '拖拽',
+    key: '00000017'
   }]
+}, {
+  path: '/animate',
+  name: '动画',
+  key: '0000002',
+  children: [{
+    path: '/animate/rc-animate',
+    name: 'rc-animate',
+    key: '00000021'
+  }]
+}, {
+  path: '/editor',
+  name: '编辑器',
+  key: '0000003',
+  children: [{
+    path: '/editor/editor',
+    name: 'editor',
+    key: '00000031'
+  }, {
+    path: '/editor/braft-editor',
+    name: 'braftEditor',
+    key: '00000032'
+  }
+  ]
 }, {
   path: '/noFound',
   name: 404,
@@ -104,6 +118,7 @@ export default class BasicLayout extends React.Component {
   onExit = () => {
     this.setState(() => ({stepsEnabled: false}));
   };
+
   render() {
     const {stepsEnabled, steps, initialStep} = this.state;
     return (

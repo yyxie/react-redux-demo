@@ -11,6 +11,7 @@ import BraftEditor from './BraftEditor';
 import Intro from './Intro';
 import IntroJs from './IntroJs';
 import Drag from './Drag';
+import Animate from './Animate';
 
 export const createRoutes = (store) => ([{
   path: '/',
@@ -25,12 +26,27 @@ export const createRoutes = (store) => ([{
   childRoutes: [
     Page1,
     Page2,
-    Editor,
-    BraftEditor,
     Intro,
     IntroJs,
     Drag
   ]
+}, {
+  path: '/editor',
+  component: BasicLayout,
+  indexRoute: {
+    onEnter: (nextState, replace) => replace('/editor/editor')
+  },
+  childRoutes: [
+    Editor,
+    BraftEditor
+  ]
+}, {
+  path: '/animate',
+  component: BasicLayout,
+  indexRoute: {
+    onEnter: (nextState, replace) => replace('/animate/rc-animate')
+  },
+  childRoutes: [Animate]
 }, Login, Register, Center, ForgetPassword])
 
 
