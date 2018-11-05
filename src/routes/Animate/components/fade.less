@@ -8,18 +8,43 @@
 
 @keyframes fadeIn {
   0% {
-    height: 0;
+    width: 0;
   }
   100% {
-    height: 200px;
+    width: 200px;
   }
 }
 
 @keyframes fadeOut {
   0% {
-    height: 200px;
+    width: 200px;
   }
   100% {
-    height: 0;
+    width: 0;
+  }
+}
+
+.slide-enter {
+  animation: slideIn .2s cubic-bezier(0.55, 0, 0.55, 0.2) both;
+}
+.slide-leave {
+  animation: slideOut .2s cubic-bezier(0.55, 0, 0.55, 0.2) both;
+}
+
+@keyframes slideIn {
+  0% {
+    left: 200px;
+  }
+  100% {
+    left: 0;
+  }
+}
+
+@keyframes slideOut {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: -200px;
   }
 }

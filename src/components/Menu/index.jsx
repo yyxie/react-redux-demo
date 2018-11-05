@@ -1,6 +1,7 @@
-import React from 'react'
+import React from 'react';
 import {Link, hashHistory} from 'react-router'
-import './Menu.less'
+import './Menu.less';
+
 
 class Menu extends React.Component {
   constructor(props) {
@@ -10,12 +11,14 @@ class Menu extends React.Component {
       meunSelectKeys: JSON.parse(sessionStorage.getItem('meunSelectKeys')) || ['000000']
     }
   }
+
   componentWillMount() {
     let secondMenuData = this.getMenuChild();
     this.setState({
       secondMenuData: secondMenuData
     })
   }
+
   /**
    * 获取二级菜单数据
    * @returns {Array}
@@ -34,7 +37,7 @@ class Menu extends React.Component {
     return children;
   }
   /**
-   * 渲染二级菜单
+   * 获取二级菜单数据
    * @param isNeedRenderChildMenu 是否应该渲染子菜单
    * @param key
    */
@@ -48,7 +51,7 @@ class Menu extends React.Component {
   /**
    * 渲染菜单
    * @param menuData
-   * @param isOneLevelMenu
+   * @param isOneLevelMenu 是否是一级菜单
    * @returns {Array}
    */
   renderMenuItem = (menuData, isOneLevelMenu) => {
@@ -70,13 +73,18 @@ class Menu extends React.Component {
     }
     return result;
   }
+
   render() {
     const {menuData} = this.props;
     const {secondMenuData} = this.state;
     return (
       <div>
-        <div className="fristMenu">{this.renderMenuItem(menuData, true)}</div>
-        <div className="scondMenu">{this.renderMenuItem(secondMenuData)}</div>
+        <div className="fristMenu">
+          {this.renderMenuItem(menuData, true)}
+        </div>
+        <div className="scondMenu">
+          {this.renderMenuItem(secondMenuData)}
+        </div>
       </div>
     )
   }
