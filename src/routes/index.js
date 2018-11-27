@@ -12,6 +12,7 @@ import Intro from './Intro';
 import IntroJs from './IntroJs';
 import Drag from './Drag';
 import Animate from './Animate';
+import Scroll from './Scroll';
 
 export const createRoutes = (store) => ([{
   path: '/',
@@ -57,6 +58,13 @@ export const createRoutes = (store) => ([{
     onEnter: (nextState, replace) => replace('/animate/rc-animate')
   },
   childRoutes: [Animate]
+}, {
+  path: '/scroll',
+  component: BasicLayout,
+  indexRoute: {
+    onEnter: (nextState, replace) => replace('/scroll/follow-scroll')
+  },
+  childRoutes: [Scroll]
 }, Login, Register, Center, ForgetPassword])
 
 

@@ -55,7 +55,7 @@ const menuData = [{
 }, {
   path: '/intro',
   name: '引导',
-  key: '0000003',
+  key: '0000004',
   children: [{
     path: '/intro/intro',
     name: 'intro',
@@ -66,9 +66,14 @@ const menuData = [{
     key: '00000016'
   }]
 }, {
-  path: '/noFound',
-  name: 404,
-  key: '0000004'
+  path: '/scroll',
+  name: '跟随滚动',
+  key: '0000005',
+  children: [{
+    path: '/scroll/follow-scroll',
+    name: 'followScroll',
+    key: '00000051'
+  }]
 }];
 const buildData = [{name: '铺软'}, {name: '电银'}];
 /*const startIntro = () => {

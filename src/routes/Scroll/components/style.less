@@ -1,0 +1,159 @@
+.sty1 {
+  width: 500px;
+  height: 500px;
+  OVERFLOW-Y: auto;
+  OVERFLOW-X: hidden;
+}
+
+/*设置层的垂直滚动条*/
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+body {
+  color: #333;
+  font: 14px/150% "Microsoft YaHei", Arial, "宋体", sans-serif;
+  text-align: center;
+  background: #DCDCDC;
+}
+
+img {
+  border: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+html {
+  _background-attachment: fixed;
+}
+
+/* html加上这段代码用于取消ie6滚动时候元素震动bug */
+
+/* content */
+#content {
+  position: relative;
+  padding-left: 250px;
+  overflow-y: auto;
+  height: 400px;
+}
+
+.article {
+  background: #04caca;
+  text-align: left;
+}
+
+.article dt {
+  width: 60%;
+  padding-top: 50px;
+  margin: 0 auto;
+  font: normal 40px/200% "Microsoft YaHei";
+  color: #fff;
+  text-shadow: 1px 1px 1px #666;
+}
+
+.article dd {
+  position: relative;
+  z-index: 1;
+  width: 60%;
+  margin: 20px auto 0 auto;
+}
+
+.article dd .con {
+  position: relative;
+  z-index: 1;
+  padding: 30px;
+  font: normal 16px/200% "Microsoft YaHei";
+}
+
+.article dd .con p {
+  text-indent: 24px;
+  margin-bottom: 20px;
+}
+
+.con {
+  width: 500px;
+  OVERFLOW-Y: auto;
+  OVERFLOW-X: hidden;
+  border: 2px solid red;
+  background-color: #dadada;
+  margin-bottom: 30px;
+}
+
+.hside {
+  position: absolute;
+  /* z-index: 1; */
+  left: 50px;
+  top: 0;
+  width: 180px;
+  height: 100%;
+  line-height: 40px;
+  background: #f50;
+  color: #fff;
+  font-family: 仿宋;
+  font-size: 15px;
+}
+
+.sideGuide {
+  width: 180px;
+  background: #fff;
+  height: 90%;
+  OVERFLOW-Y: auto;
+  OVERFLOW-X: hidden;
+}
+
+.sideGuide h3 {
+  height: 40px;
+  line-height: 40px;
+  background: #f50;
+  font-weight: bold;
+  color: #fff;
+}
+
+.sideGuide ul {
+  padding: 10px 0;
+}
+
+.sideGuide li {
+  height: 32px;
+  line-height: 32px;
+  position: relative;
+  font-weight: bold;
+  border-bottom: 1px solid #f4f4f4;
+  vertical-align: middle;
+  font-family: 仿宋;
+  font-size: 15px;
+}
+
+.sideGuide li s {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: -10px;
+  width: 10px;
+  background: #555;
+  height: 32px;
+}
+
+.sideGuide li a {
+  display: block;
+  color: #999;
+}
+
+.sideGuide li a:hover {
+  text-decoration: none;
+  color: #f50;
+}
+
+.sideGuide li.on s {
+  display: block;
+}
+
+.sideGuide li.on a {
+  background: #f4f4f4;
+  color: #333;
+}
